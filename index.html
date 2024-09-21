@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Silicon Coder</title>
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <h1>Website Crawler</h1>
+    <form action="/api/crawl" method="post" name="crawlForm">
+
+        <label for="base_url">Enter the URL to crawl:</label><br><br>
+        <input type="text" id="base_url" name="base_url" placeholder="type your url here" required><br><br>
+        <input type="submit" value="Start Crawling">
+
+    </form>
+    <br>
+
+    </br>
+<form action="/api/chat" method="POST">
+     <div class="form-group col-sm-6" >
+      <h1>Chat with AI</h1>
+    <textarea id="message" rows="4" cols="50" placeholder="Type your message here..."></textarea><br>
+    <button id="sendMessage">Send</button>
+    <h2>Response:</h2>
+    <pre id="response"></pre>
+
+  </div>
+
+
+</form>
+<script>
+        document.getElementById('sendMessage').addEventListener('click', async () => {
+            const message = document.getElementById('message').value;
+
+            const response = await fetch('http://localhost:5000/api/chat', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ message }),
+            });
+
+            const data = await response.json();
+            document.getElementById('response').innerText = data.response;
+        });
+    </script>
+
+</body>
+</html>
